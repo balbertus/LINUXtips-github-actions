@@ -1,6 +1,6 @@
 # Descomplicando GitHub Actions
 
-Se inscreva na aula ao vivo e gratuita: https://quiz.linuxtips.io/github-actions
+Eu @balbertus me inscrevi na aula ao vivo e gratuita: https://quiz.linuxtips.io/github-actions
 
 Bem-vindo ao **Descomplicando GitHub Actions**! Este projeto foi criado pela comunidade **LINUXtips** para você aprender os conceitos básicos de CI/CD na prática de forma simples e direta.
 
