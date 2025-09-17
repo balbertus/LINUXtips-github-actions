@@ -7,7 +7,7 @@ env:
   NODE_VERSION: '18'
   CHALLENGE_LEVEL: 2
   CHALLENGE_NAME: "testes-automatizados"
-  COVERAGE_MIN: 80 # Cobertura mínima exigida em porcentagem
+  COVERAGE_MIN: 99 # Cobertura mínima exigida em porcentagem
 
 jobs:
   tests-and-coverage:
@@ -21,16 +21,23 @@ jobs:
         uses: actions/checkout@v4
 
       # INSIRA AQUI A LÓGICA PARA RODAR OS TESTES E VERIFICAR A COBERTURA
-      ###
-      ###
-      ###
 
+      - name: "tests-and-coverage"
+        uses: actions/checkout@v5
+        with:
+          node-version: 18
+        
       - name: "Extrair porcentagem de cobertura" # Esse step será validado pelo desafio, não altere o nome. No final, ele deve gerar o output "coverage" com a porcentagem de cobertura.
         id: coverage
         run: |
           COVERAGE=$(npx nyc report --reporter=text-summary | grep -oP 'Statements\s*:\s*\K[0-9\.]+(?=%)' | head -1)
           echo "Coverage: $COVERAGE%"
           echo "coverage=$COVERAGE" >> $GITHUB_OUTPUT
+    
+      - name: "valida se os testes passaram"
+        if:  ${{ steps.coverage.outputs.coverage < env.COVERAGE_MIN }}
+        run: |
+          echo "Cobertura minima não atendida: Esperado - ${{ env.COVERAGE_MIN }}"
 
   generate-certificate: # DAQUI PARA BAIXO, NÃO ALTERAR
       name: "Desafio Nível 2 - Certificado"
